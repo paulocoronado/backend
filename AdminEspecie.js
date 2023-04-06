@@ -1,5 +1,4 @@
-import { PrismaClient } from '@prisma/client'
-
+const { PrismaClient }= require('@prisma/client');
 
 class AdminEspecie{
 
@@ -10,17 +9,22 @@ class AdminEspecie{
     async crearEspecie(req, res){
 
         const datos=req.body;
+        console.log("Estos son los datos"+ datos);
+
 
         const especie= await this.prisma.especie.create(
             {
                 data:datos
             }
-        )
+        );
+
+        res.json(especie);
 
     }
 
-    listarEspecies(req, res){
-
+    async listarEspecies(req, res){
+        const especies= await this.prisma.especie.findMany();
+        res.json(especies);
     }
     
 }

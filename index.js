@@ -11,11 +11,13 @@ class AteneaVetAPI{
         this.app= express();    
         this.adminEspecie= new AdminEspecie();
 
+        this.app.use(this.configurarCORS);
+        this.app.use(express.json());        
+        
         this.app.post("/crear_especie", (req, res)=>{this.adminEspecie.crearEspecie(req, res);});
         this.app.get("/listar_especies", (req, res)=>{this.adminEspecie.listarEspecies(req, res);});
 
-        this.app.use(this.configurarCORS);
-        this.app.use(express.json());
+        
     }
 
     configurarCORS(req, res, next){
@@ -33,7 +35,5 @@ class AteneaVetAPI{
 
     }
 }
-
-
 const ateneaVetAPI= new AteneaVetAPI();
 ateneaVetAPI.iniciarServidor();
